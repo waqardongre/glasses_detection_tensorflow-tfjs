@@ -5,7 +5,7 @@
   "keywords": [],
   "main": "src/index.js",
   "dependencies": {
-    "@tensorflow/tfjs": "^3.18.0",
+    "@tensorflow/tfjs": "3.18.0",
     "@tensorflow/tfjs-converter": "3.18.0",
     "@tensorflow/tfjs-core": "3.18.0",
     "@tensorflow/tfjs-node": "3.18.0",
