@@ -1,5 +1,5 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import ReactDOM from "react-dom/client";
 import * as tf from '@tensorflow/tfjs';
 import {loadGraphModel} from '@tensorflow/tfjs-converter';
 import "./styles.css";
@@ -111,9 +111,9 @@ class App extends React.Component {
     ctx.textBaseline = "top";
 
     //Getting predictions
-    const classes = predictions[1].dataSync();
-    const boxes = predictions[2].arraySync();
-    const scores = predictions[7].arraySync();
+    const classes = predictions[7].dataSync();
+    const boxes = predictions[3].arraySync();
+    const scores = predictions[4].arraySync();
     const detections = this.buildDetectedObjects(scores, threshold,
                                     boxes, classes, classesDir);
 
@@ -172,5 +172,14 @@ class App extends React.Component {
   }
 }
 
-const rootElement = document.getElementById("root");
-ReactDOM.render(<App />, rootElement);
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
+
+// If you want to start measuring performance in your app, pass a function
+// to log results (for example: reportWebVitals(console.log))
+// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+//reportWebVitals();
