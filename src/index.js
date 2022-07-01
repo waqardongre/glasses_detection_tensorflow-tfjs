@@ -5,7 +5,7 @@ import {loadGraphModel} from '@tensorflow/tfjs-converter';
 import "./styles.css";
 tf.setBackend('webgl');
 
-const threshold = 0.75;
+const threshold = 0.50;
 
 async function load_model() {
     // It's possible to load the model locally or from a repo
@@ -17,7 +17,7 @@ async function load_model() {
 
 let classesDir = {
     1: {
-        name: 'connection',
+        name: 'Glasses',
         id: 1,
     }
 }
@@ -111,9 +111,9 @@ class App extends React.Component {
     ctx.textBaseline = "top";
 
     //Getting predictions
-    const boxes = predictions[3].arraySync();
-    const scores = predictions[4].arraySync();
-    const classes = predictions[7].dataSync();
+    const classes = predictions[1].dataSync();
+    const boxes = predictions[2].arraySync();
+    const scores = predictions[7].arraySync();
     const detections = this.buildDetectedObjects(scores, threshold,
                                     boxes, classes, classesDir);
 
