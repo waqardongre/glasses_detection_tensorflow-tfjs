@@ -1,4 +1,4 @@
-# Real-time Glasses Detection with Tensorflow-tfjs
+# Real-time Glasses Detection with TensorflowJS
 
 
 Reference:
