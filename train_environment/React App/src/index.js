@@ -5,7 +5,7 @@ import {loadGraphModel} from '@tensorflow/tfjs-converter';
 import "./styles.css";
 tf.setBackend('webgl');
 
-const threshold = 0.80;
+const threshold = 0.50;
 
 async function load_model() {
     // It's possible to load the model locally or from a repo
@@ -26,6 +26,7 @@ class App extends React.Component {
   videoRef = React.createRef();
   canvasRef = React.createRef();
 
+
   componentDidMount() {
     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
       const webCamPromise = navigator.mediaDevices
@@ -38,19 +39,6 @@ class App extends React.Component {
         .then(stream => {
           window.stream = stream;
           this.videoRef.current.srcObject = stream;
-
-          //start added later
-
-          // this.videoRef.width = window.innerWidth
-          // this.videoRef.height = window.innerHeight
-          
-          // window.addEventListener('resize', () => {
-          //   this.videoRef.width = window.innerWidth
-          //   this.videoRef.height = window.innerHeight
-          // })
-
-          //end added later
-
           return new Promise((resolve, reject) => {
             this.videoRef.current.onloadedmetadata = () => {
               resolve();
@@ -115,17 +103,6 @@ class App extends React.Component {
 
   renderPredictions = predictions => {
     const ctx = this.canvasRef.current.getContext("2d");
-
-    //start added later
-    ctx.width = window.innerWidth
-    ctx.height = window.innerHeight
-    
-    window.addEventListener('resize', () => {
-      ctx.width = window.innerWidth
-      ctx.height = window.innerHeight
-    })
-    //end added later
-
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 
     // Font options.
@@ -171,24 +148,25 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <div>
-          <h1>Real-Time Object Detection: Glasses</h1>
-          <h3>MobileNetV2</h3>
-        </div>
-        <div>
-          <video
-            className="size"
-            autoPlay
-            playsInline
-            muted
-            ref={this.videoRef}
-            id="frame"
-          />
-          <canvas
-            className="size"
-            ref={this.canvasRef}
-          />
-        </div>
+        <h1>Real-Time Object Detection: Glasses</h1>
+        <h3>MobileNetV2</h3>
+        <video
+          style={{height: '600px', width: "500px"}}
+          className="size"
+          autoPlay
+          playsInline
+          muted
+          ref={this.videoRef}
+          width="600"
+          height="500"
+          id="frame"
+        />
+        <canvas
+          className="size"
+          ref={this.canvasRef}
+          width="600"
+          height="500"
+        />
       </div>
     );
   }
